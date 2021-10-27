@@ -2,6 +2,7 @@ package com.primavera.kafkaconsumer;
 
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,8 @@ import org.springframework.kafka.annotation.KafkaListener;
 @SpringBootApplication
 public class KafkaConsumerApplication implements CommandLineRunner {
 
-	private final String topicName="ubr";
+
+	private final String topicName = "ubr";
 	private final String consumerGroup="default";
 
     public static void main(String[] args) {
@@ -24,7 +26,7 @@ public class KafkaConsumerApplication implements CommandLineRunner {
     }
 
     @KafkaListener(topics = topicName, groupId = consumerGroup)
-    private void listen(ConsumerRecord<?, ?> consumerRecord) {
+    private void listen(ConsumerRecord<String, Person> consumerRecord) {
         System.out.println("Received Message in Topic:" + topicName + " key: " + consumerRecord.key() + " message: " + consumerRecord.value());
     }
 }
